@@ -1,11 +1,11 @@
 {
-  "name": "claudia-api-builder",
-  "version": "2.3.1",
+  "name": "yaarh-lib",
+  "version": "0.0.2",
   "description": "Simplify AWS ApiGateway handling",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/claudiajs/claudia-api-builder.git"
+    "url": "https://github.com/blackwoodseven/yaarh-lib.git"
   },
   "main": "index.js",
   "keywords": [
@@ -19,9 +19,9 @@
     "serverless"
   ],
   "bugs": {
-    "url": "https://github.com/claudiajs/claudia-api-builder/issues"
+    "url": "https://github.com/blackwoodseven/yaarh-lib/issues"
   },
-  "homepage": "http://claudiajs.com",
+  "homepage": "https://github.com/blackwoodseven",
   "files": [
     "src",
     "*.md",
@@ -32,7 +32,11 @@
     "test": "node spec/support/jasmine-runner.js",
     "debug": "node debug spec/support/jasmine-runner.js"
   },
-  "author": "Gojko Adzic <gojko@gojko.com> http://gojko.net",
+  "contributors": [
+    { "name": "Guillem Salas", "email" : "guillemsalas@gmail.com" },
+    { "name": "Marco Somma", "email" : "mak.so1979@gmail.com" },
+    { "name" : "Péter Nagy", "email" : "peternagyxx@gmail.com" }
+  ],
   "devDependencies": {
     "bluebird": "^3.3.0",
     "eslint": "^3.12.2",
