@@ -7,9 +7,9 @@
     "type": "git",
     "url": "https://github.com/blackwoodseven/yaarh-lib.git"
   },
-  "main": "index.js",
+  "main": "src/index.js",
   "keywords": [
-    "claudia",
+    "yaarh",
     "aws",
     "lambda",
     "apigateway",
@@ -22,27 +22,25 @@
     "url": "https://github.com/blackwoodseven/yaarh-lib/issues"
   },
   "homepage": "https://github.com/blackwoodseven",
-  "files": [
-    "src",
-    "*.md",
-    "*.js"
-  ],
   "scripts": {
-    "pretest": "eslint .",
-    "test": "node spec/support/jasmine-runner.js",
-    "debug": "node debug spec/support/jasmine-runner.js"
+    "test": "echo 'no tests'",
   },
   "contributors": [
-    { "name": "Guillem Salas", "email" : "guillemsalas@gmail.com" },
-    { "name": "Marco Somma", "email" : "mak.so1979@gmail.com" },
-    { "name" : "Péter Nagy", "email" : "peternagyxx@gmail.com" }
+    {
+      "name": "Guillem Salas",
+      "email": "guillemsalas@gmail.com"
+    },
+    {
+      "name": "Marco Somma",
+      "email": "mak.so1979@gmail.com"
+    },
+    {
+      "name": "Péter Nagy",
+      "email": "peternagyxx@gmail.com"
+    }
   ],
-  "devDependencies": {
-    "bluebird": "^3.3.0",
-    "eslint": "^3.12.2",
-    "eslint-config-crockford": "^0.2.0",
-    "eslint-config-defaults": "^9.0.0",
-    "jasmine": "^2.5.2",
-    "jasmine-spec-reporter": "^2.7.0"
+  "devDependencies": {},
+  "dependencies": {
+    "pathparser": "^1.0.0"
   }
 }
