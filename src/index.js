@@ -12,6 +12,7 @@ class YaarhLib {
       patch: new PathParser
     }
     this._interceptors = []
+    this.handler = this.handler.bind(this)
   }
 
   register (method, path, handler) {
