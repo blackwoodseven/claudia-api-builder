@@ -1,5 +1,6 @@
 'use strict';
 const PathParser = require('pathparser')
+
 class YaarhLib {
   constructor() {
     this._routes = {
@@ -58,6 +59,11 @@ class YaarhLib {
   }
 
   exec(handler, pathParameters) {
+    //pathParameters come from pathparser library
+    //and it is attaching a pathParameters.url on that we just don't want
+    //so we remove it
+    delete pathParameters.url
+
     const event = Object.assign({}, this._currentEvent, { pathParameters })
 
     const shouldStop = this._interceptors.reduce(
