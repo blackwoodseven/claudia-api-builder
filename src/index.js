@@ -74,6 +74,7 @@ class YaarhLib {
   }
 
   handler(event, lambdaContext, callback) {
+    console.log('Processing event', event)
     const method = event.httpMethod.toLowerCase()
     this._currentEvent = Object.assign({}, event, { lambdaContext })
     this._callback = callback
