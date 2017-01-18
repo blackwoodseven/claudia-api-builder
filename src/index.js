@@ -1,6 +1,5 @@
+'use strict';
 const PathParser = require('pathparser')
-
-
 class YaarhLib {
   constructor() {
     this._routes = {
