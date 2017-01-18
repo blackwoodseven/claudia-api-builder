@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/blackwoodseven",
   "scripts": {
-    "test": "echo 'no tests'",
+    "test": "echo 'no tests'"
   },
   "contributors": [
     {
