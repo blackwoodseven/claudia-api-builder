@@ -93,6 +93,7 @@ class YaarhLib {
     handler(event)
       .then( data => {
         console.log('YaarhLogs: YAARH event:', event)
+        console.log('YaarhLogs: YAARH this._currentEvent:', this._currentEvent)
         if (data instanceof Raw) {
           this._callback(null, data.response)
         }
