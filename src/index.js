@@ -59,7 +59,7 @@ class YaarhLib {
   }
 
   response(body, statusCode, header){
-    console.log('reponse this=')
+    console.log('reponse this=', this)
     return this._callback(null,{
       statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
       body: body,
