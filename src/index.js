@@ -66,6 +66,7 @@ class YaarhLib {
     }
     console.log('reponse jsonResponse=', jsonResponse)
     return this._callback(null, jsonResponse)
+      .catch(e => console.log(e))
   }
 
   exec(handler, pathParameters) {
