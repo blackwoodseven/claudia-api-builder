@@ -59,12 +59,13 @@ class YaarhLib {
   }
 
   response(message, statusCode, header){
-    console.log('reponse this=', this)
-    return this._callback(null,{
+    var jsonResponse = {
       statusCode: statusCode ? statusCode : message.errorMessage ? 500 : 200,
       message,
       header: header ? header : {'Content-Type' : 'application/json'}
-    })
+    }
+    console.log('reponse jsonResponse=', jsonResponse)
+    return this._callback(null,jsonResponse)
   }
 
   exec(handler, pathParameters) {
