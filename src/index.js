@@ -61,11 +61,11 @@ class YaarhLib {
   response(message, statusCode, header){
     var jsonResponse = {
       statusCode: statusCode ? statusCode : message.errorMessage ? 500 : 200,
-      message,
+      body: message,
       header: header ? header : {'Content-Type' : 'application/json'}
     }
     console.log('reponse jsonResponse=', jsonResponse)
-    return this._callback(null,jsonResponse)
+    return this._callback(null, jsonResponse)
   }
 
   exec(handler, pathParameters) {
@@ -98,9 +98,7 @@ class YaarhLib {
     this._callback = callback
 
     if(!exist){
-      const self = this;
-      console.log('self',self)
-      return self.response(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404)
+      return this.response({message : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`}, 404)
     }
   }
 }
