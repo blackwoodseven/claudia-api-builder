@@ -92,7 +92,13 @@ class YaarhLib {
     console.log('Path Match found', exist)
     if(!exist){
       var error = `Could not find matching action for ${event.pathParameters.proxy} and method ${event.httpMethod}`
-      return callback(null, error)
+      return callback(null, {
+        statusCode: 404,
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ "message" : error })
+      })
     }
 
     this._currentEvent = Object.assign({}, event, { lambdaContext })
