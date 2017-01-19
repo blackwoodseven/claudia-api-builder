@@ -91,7 +91,7 @@ class YaarhLib {
           'Content-Type' : 'application/json'
         },
         body: JSON.stringify({
-          "message" : `Could not find matching action for method "${event.httpMethod}" path "${event.pathParameters.proxy}"`
+          "message" : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`
         })
       })
     }
