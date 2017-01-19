@@ -66,7 +66,6 @@ class YaarhLib {
     }
     console.log('reponse jsonResponse=', jsonResponse)
     return this._callback(null, jsonResponse)
-      .catch(e => console.log(e))
   }
 
   exec(handler, pathParameters) {
@@ -86,7 +85,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this.response(JSON.stringify(data.body), data.statusCode, data.header))
+      .then( data => this.response(data.body, data.statusCode, data.header))
       .catch( err => this._callback(err))
   }
 
@@ -99,7 +98,7 @@ class YaarhLib {
     this._callback = callback
 
     if(!exist){
-      return this.response(JSON.stringify({message : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`}), 404)
+      return this.response({message : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`}, 404)
     }
   }
 }
