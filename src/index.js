@@ -92,13 +92,13 @@ class YaarhLib {
     const method = event.httpMethod.toLowerCase()
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
+    this._currentEvent = Object.assign({}, event, { lambdaContext })
+    this._callback = callback
+
     if(!exist){
       const self = this;
       return self.response(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404)
     }
-
-    this._currentEvent = Object.assign({}, event, { lambdaContext })
-    this._callback = callback
   }
 }
 
