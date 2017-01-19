@@ -58,8 +58,9 @@ class YaarhLib {
     this._interceptors.push(handler)
   }
 
-  response(body, statusCode, header){
-    return this._callback(null,{
+  response(body, statusCode, header, callback){
+    console.log('reponse this=')
+    return callback(null,{
       statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
       body: body,
       header: header ? header : {'Content-Type' : 'application/json'}
@@ -83,7 +84,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this.response(data.body, data.statusCode, data.header))
+      .then( data => this.response(data.body, data.statusCode, data.header, this._callback))
       .catch( err => this._callback(err))
   }
 
@@ -92,13 +93,13 @@ class YaarhLib {
     const method = event.httpMethod.toLowerCase()
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
-    this._currentEvent = Object.assign({}, event, { lambdaContext })
-    this._callback = callback
-
     if(!exist){
       const self = this;
-      return self.response(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404)
+      return self.response(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404, callback)
     }
+
+    this._currentEvent = Object.assign({}, event, { lambdaContext })
+    this._callback = callback
   }
 }
 
