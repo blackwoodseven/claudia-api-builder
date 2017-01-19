@@ -94,7 +94,7 @@ class YaarhLib {
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
     if(!exist){
-      var error = { message: `Could not find matching action for ${event.pathParameters.proxy} and method ${event.httpMethod}`}
+      var error = `Could not find matching action for ${event.pathParameters.proxy} and method ${event.httpMethod}`
       console.log(error)
       return this._callback(error)
     }
