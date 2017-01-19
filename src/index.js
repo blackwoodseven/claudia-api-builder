@@ -1,6 +1,10 @@
 'use strict';
 const PathParser = require('pathparser')
 
+const NO_MATCHING_ACTION = (path, method) => {
+  message: `Could not find matching action for ${path} and method ${method}`
+}
+
 class YaarhLib {
   constructor() {
     this._routes = {
@@ -81,10 +85,17 @@ class YaarhLib {
 
   handler(event, lambdaContext, callback) {
     console.log('Processing event', event)
-    const method = event.httpMethod.toLowerCase()
-    this._currentEvent = Object.assign({}, event, { lambdaContext })
-    this._callback = callback
-    this._routes[method].run('/'+event.pathParameters.proxy)
+    console.log('Processing lambdaContext', lambdaContext)
+    console.log('Processing callback', callback)
+    try {
+      const method = event.httpMethod.toLowerCase()
+      this._currentEvent = Object.assign({}, event, { lambdaContext })
+      this._callback = callback
+      this._routes[method].run('/'+event.pathParameters.proxy)
+    } catch (e) {
+      console.error('Error processing event', e)
+      return callback(NO_MATCHING_ACTION(event.pathParameters.proxy, event.httpMethod))
+    }
   }
 }
 
