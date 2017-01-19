@@ -57,16 +57,7 @@ class YaarhLib {
   intercept(handler){
     this._interceptors.push(handler)
   }
-
-  response(message, statusCode, header){
-    var jsonResponse = {
-      statusCode: statusCode ? statusCode : message.errorMessage ? 500 : 200,
-      body: JSON.stringify(message),
-      header: header ? header : {'Content-Type' : 'application/json'}
-    }
-    console.log('reponse jsonResponse=', jsonResponse)
-    return this._callback(null, jsonResponse)
-  }
+  
 
   exec(handler, pathParameters) {
     //pathParameters come from pathparser library
@@ -85,7 +76,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this.response(data.message, data.statusCode, data.header))
+      .then( data => this._callback(null, data))
       .catch( err => this._callback(err))
   }
 
@@ -94,12 +85,20 @@ class YaarhLib {
     const method = event.httpMethod.toLowerCase()
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
+    if(!exist){
+      return callback(null, {
+        statusCode: 404,
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          "message" : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`
+        })
+      })
+    }
+
     this._currentEvent = Object.assign({}, event, { lambdaContext })
     this._callback = callback
-
-    if(!exist){
-      return this.response({message : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`}, 404)
-    }
   }
 }
 
