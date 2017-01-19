@@ -66,6 +66,8 @@ class YaarhLib {
     //pathParameters come from pathparser library
     //and it is attaching a pathParameters.url on that we just don't want
     //so we remove it
+    console.log(`exec handler:${handler}`)
+    console.log(`exec pathParameters:${pathParameters}`)
     delete pathParameters.url
 
     const event = Object.assign({}, this._currentEvent, { pathParameters })
