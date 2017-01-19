@@ -117,5 +117,6 @@ class YaarhLib {
     }
   }
 }
+YaarhLib.Raw = Raw
 
 module.exports = YaarhLib
