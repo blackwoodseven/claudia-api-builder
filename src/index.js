@@ -58,11 +58,11 @@ class YaarhLib {
     this._interceptors.push(handler)
   }
 
-  response(body, statusCode, header){
+  response(body, statusCode, headers){
     var jsonResponse = {
       statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
       body: body,
-      header: header ? header : {'Content-Type' : 'application/json'}
+      headers: headers ? headers : {'Content-Type' : 'application/json'}
     }
     console.log('reponse jsonResponse=', jsonResponse)
     return this._callback(null, jsonResponse)
@@ -85,7 +85,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this.response(data.body, data.statusCode, data.header))
+      .then( data => this.response(data.body, data.statusCode, data.headers))
       .catch( err => this._callback(err))
   }
 
