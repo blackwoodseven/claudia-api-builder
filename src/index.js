@@ -61,7 +61,7 @@ class YaarhLib {
   response(body, statusCode, headers){
     var jsonResponse = {
       statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
-      body: body,
+      body: JSON.stringify(body),
       headers: headers ? headers : {'Content-Type' : 'application/json'}
     }
     console.log('reponse jsonResponse=', jsonResponse)
