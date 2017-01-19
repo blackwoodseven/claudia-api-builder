@@ -58,7 +58,7 @@ class YaarhLib {
     this._interceptors.push(handler)
   }
 
-  response(statusCode=null, body, header=null){
+  response(body, statusCode, header){
     return this._callback(null,{
       statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
       body: body,
@@ -83,7 +83,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => successResponse(data.statusCode, data.body, data.header))
+      .then( data => successResponse(data.body, data.statusCode, data.header))
       .catch( err => this._callback(err))
   }
 
@@ -93,7 +93,7 @@ class YaarhLib {
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
     if(!exist){
-      return successResponse(404, `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`)
+      return successResponse(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404)
     }
 
     this._currentEvent = Object.assign({}, event, { lambdaContext })
