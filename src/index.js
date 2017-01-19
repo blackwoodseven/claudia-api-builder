@@ -85,17 +85,10 @@ class YaarhLib {
 
   handler(event, lambdaContext, callback) {
     console.log('Processing event', event)
-    console.log('Processing lambdaContext', lambdaContext)
-    console.log('Processing callback', callback)
-    try {
-      const method = event.httpMethod.toLowerCase()
-      this._currentEvent = Object.assign({}, event, { lambdaContext })
-      this._callback = callback
-      this._routes[method].run('/'+event.pathParameters.proxy)
-    } catch (e) {
-      console.error('Error processing event', e)
-      return callback(NO_MATCHING_ACTION(event.pathParameters.proxy, event.httpMethod))
-    }
+    const method = event.httpMethod.toLowerCase()
+    this._currentEvent = Object.assign({}, event, { lambdaContext })
+    this._callback = callback
+    this._routes[method].run('/'+event.pathParameters.proxy)
   }
 }
 
