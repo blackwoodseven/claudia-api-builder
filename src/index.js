@@ -105,11 +105,11 @@ class YaarhLib {
   handler(event, lambdaContext, callback) {
     console.log('YaarhLogs: Processing event:', event)
     const method = event.httpMethod.toLowerCase()
-    console.log('YaarhLogs: Path match found?', exist)
     this._currentEvent = Object.assign({}, event, { lambdaContext })
     this._callback = callback
     
     const executed = this._routes[method].run('/'+event.pathParameters.proxy)
+    console.log('YaarhLogs: Path match found?', executed)
     if(!executed){
       this._callback(null, {
         statusCode: 404,
