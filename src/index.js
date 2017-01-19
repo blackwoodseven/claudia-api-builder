@@ -60,7 +60,7 @@ class YaarhLib {
 
   response(statusCode=null, body, header=null){
     return this._callback(null,{
-      statusCode: statusCode ? statusCode : 200,
+      statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
       body: body,
       header: header ? header : {'Content-Type' : 'application/json'}
     })
