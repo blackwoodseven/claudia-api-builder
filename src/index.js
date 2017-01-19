@@ -1,10 +1,6 @@
 'use strict';
 const PathParser = require('pathparser')
 
-const NO_MATCHING_ACTION = (path, method) => ({
-  message: `Could not find matching action for ${path} and method ${method}`
-})
-
 class YaarhLib {
   constructor() {
     this._routes = {
@@ -66,8 +62,6 @@ class YaarhLib {
     //pathParameters come from pathparser library
     //and it is attaching a pathParameters.url on that we just don't want
     //so we remove it
-    console.log(`exec handler:${handler}`)
-    console.log(`exec pathParameters:${pathParameters}`)
     delete pathParameters.url
 
     const event = Object.assign({}, this._currentEvent, { pathParameters })
@@ -100,7 +94,9 @@ class YaarhLib {
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
     if(!exist){
-      return this._callback(NO_MATCHING_ACTION(event.pathParameters.proxy, event.httpMethod))
+      var error = { message: `Could not find matching action for ${event.pathParameters.proxy} and method ${event.httpMethod}`}
+      console.log(error)
+      return this._callback(error)
     }
   }
 }
