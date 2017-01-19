@@ -79,8 +79,14 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this._callback(null, data) )
-      .catch( err => this._callback(err) )
+      .then( data => {
+        console.log(`received data:${data}`)
+        return this._callback(null, data)
+      })
+      .catch( err => {
+        console.error(`received error:${error}`)
+        this._callback(err)
+      })
   }
 
   handler(event, lambdaContext, callback) {
