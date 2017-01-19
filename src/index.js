@@ -65,13 +65,11 @@ class YaarhLib {
   }
 
   response(body){
-    var jsonResponse = {
+    return this._callback(null, {
       statusCode: 200,
       body: JSON.stringify(body),
       headers: {'Content-Type' : 'application/json'}
-    }
-    console.log('reponse jsonResponse=', jsonResponse)
-    return this._callback(null, jsonResponse)
+    })
   }
 
   exec(handler, pathParameters) {
@@ -101,10 +99,10 @@ class YaarhLib {
   }
 
   handler(event, lambdaContext, callback) {
-    console.log('Processing event', event)
+    console.log('Processing event:', event)
     const method = event.httpMethod.toLowerCase()
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
-    console.log('Path Match found', exist)
+    console.log('Path match found?', exist)
     this._currentEvent = Object.assign({}, event, { lambdaContext })
     this._callback = callback
 
