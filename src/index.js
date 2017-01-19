@@ -97,6 +97,7 @@ class YaarhLib {
     this._callback = callback
 
     if(!exist){
+      console.log('self',self)
       const self = this;
       return self.response(`Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`, 404)
     }
