@@ -58,6 +58,14 @@ class YaarhLib {
     this._interceptors.push(handler)
   }
 
+  response(statusCode=null, body, header=null){
+    return this._callback(null,{
+      statusCode: statusCode ? statusCode : 200,
+      body: body,
+      header: header ? header : {'Content-Type' : 'application/json'}
+    })
+  }
+
   exec(handler, pathParameters) {
     //pathParameters come from pathparser library
     //and it is attaching a pathParameters.url on that we just don't want
@@ -75,7 +83,7 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this._callback(null, data))
+      .then( data => successResponse(data.statusCode, data.body, data.header))
       .catch( err => this._callback(err))
   }
 
@@ -85,15 +93,7 @@ class YaarhLib {
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
     console.log('Path Match found', exist)
     if(!exist){
-      return callback(null, {
-        statusCode: 404,
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
-          "message" : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`
-        })
-      })
+      return successResponse(404, `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`)
     }
 
     this._currentEvent = Object.assign({}, event, { lambdaContext })
