@@ -100,7 +100,7 @@ class YaarhLib {
       this._callback = callback
       this._routes[method].run('/'+event.pathParameters.proxy)
     }else{
-      callback(NO_MATCHING_ACTION(event.pathParameters.proxy,event.httpMethod))
+      return callback(NO_MATCHING_ACTION(event.pathParameters.proxy,event.httpMethod))
     }
   }
 }
