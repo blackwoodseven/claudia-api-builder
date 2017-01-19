@@ -76,9 +76,9 @@ class YaarhLib {
     //pathParameters come from pathparser library
     //and it is attaching a pathParameters.url on that we just don't want
     //so we remove it
-    console.log('YaargLogs: pathParameters:', pathParameters)
+    console.log('YaarhLogs: pathParameters:', pathParameters)
     delete pathParameters.url
-    console.log('YaargLogs: pathParameters:', pathParameters)
+    console.log('YaarhLogs: pathParameters:', pathParameters)
 
     const event = Object.assign({}, this._currentEvent, { pathParameters })
 
@@ -92,7 +92,7 @@ class YaarhLib {
 
     handler(event)
       .then( data => {
-        console.log('YaargLogs: YAARH event:', event)
+        console.log('YaarhLogs: YAARH event:', event)
         if (data instanceof Raw) {
           this._callback(null, data.response)
         }
@@ -102,10 +102,10 @@ class YaarhLib {
   }
 
   handler(event, lambdaContext, callback) {
-    console.log('YaargLogs: Processing event:', event)
+    console.log('YaarhLogs: Processing event:', event)
     const method = event.httpMethod.toLowerCase()
     const exist = this._routes[method].run('/'+event.pathParameters.proxy)
-    console.log('YaargLogs: Path match found?', exist)
+    console.log('YaarhLogs: Path match found?', exist)
     this._currentEvent = Object.assign({}, event, { lambdaContext })
     this._callback = callback
 
