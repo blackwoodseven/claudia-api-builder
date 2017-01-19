@@ -93,8 +93,11 @@ class YaarhLib {
     console.log('Processing event', event)
     const method = event.httpMethod.toLowerCase()
     this._currentEvent = Object.assign({}, event, { lambdaContext })
+    console.log('this._currentEvent', this._currentEvent)
     this._callback = callback
+    console.log('this._currentEvent', this._callback)
     this._routes[method].run('/'+event.pathParameters.proxy)
+    console.log('this._currentEvent', this._routes)
   }
 }
 
