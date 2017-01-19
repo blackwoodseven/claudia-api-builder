@@ -1,6 +1,12 @@
 'use strict';
 const PathParser = require('pathparser')
 
+class Raw {
+  constructor(response) {
+    this.response = response
+  }
+}
+
 class YaarhLib {
   constructor() {
     this._routes = {
@@ -58,11 +64,11 @@ class YaarhLib {
     this._interceptors.push(handler)
   }
 
-  response(body, statusCode, headers){
+  response(body){
     var jsonResponse = {
-      statusCode: statusCode ? statusCode : body.errorMessage ? 500 : 200,
+      statusCode: 200,
       body: JSON.stringify(body),
-      headers: headers ? headers : {'Content-Type' : 'application/json'}
+      headers: {'Content-Type' : 'application/json'}
     }
     console.log('reponse jsonResponse=', jsonResponse)
     return this._callback(null, jsonResponse)
@@ -85,7 +91,12 @@ class YaarhLib {
     }
 
     handler(event)
-      .then( data => this.response(data.body, data.statusCode, data.headers))
+      .then( data => {
+        if (data instanceof Raw) {
+          this._callback(null, data.response)
+        }
+        this.response(data)
+      })
       .catch( err => this._callback(err))
   }
 
@@ -98,7 +109,11 @@ class YaarhLib {
     this._callback = callback
 
     if(!exist){
-      return this.response({message : `Could not find matching action for method '${event.httpMethod}' path '${event.pathParameters.proxy}'`}, 404)
+      this._callback(null, {
+        statusCode: 404,
+        headers: { 'Content-Type' : 'application/json' },
+        body: '{"message":"Resource not found"}'
+      })
     }
   }
 }
